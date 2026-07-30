@@ -265,5 +265,3 @@ The computations are exact searches at the model level, but the MILP programs us
 When referring to this repository, please cite the accompanying paper:
 
 > *Edge-fault-tolerant two-disjoint-cycle-cover pancyclicity of augmented cubes*.
-
-Complete bibliographic information can be added here after publication.
