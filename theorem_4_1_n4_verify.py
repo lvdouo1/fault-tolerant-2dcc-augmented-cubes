@@ -26,9 +26,6 @@ Method overview
        cycle_exists[S] = True and cycle_exists[V \ S] = True.
    Such a pair gives the desired two disjoint cycles covering all vertices.
 
-Because the property is invariant under graph automorphisms, checking one
-representative from each orbit of fault sets is sufficient.
-
 Notes
 -----
 - This script is intended as a verification/certification tool for the paper.
