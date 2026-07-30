@@ -12,53 +12,53 @@ The repository verifies the following cases.
 
 ### Theorem 4.1, base case `n = 4`
 
-For every fault set \(F \subseteq E(AQ_4)\) with \(|F| \le 5\), and every integer \(3 \le \ell \le 8\), the graph \(AQ_4-F\) contains two vertex-disjoint cycles \(C_1\) and \(C_2\) such that
+For every fault set $F \subseteq E(AQ_4)$ with $|F| \le 5$, and every integer $3 \le \ell \le 8$, the graph $AQ_4-F$ contains two vertex-disjoint cycles $C_1$ and $C_2$ such that
 
-\[
+$$
 |C_1|=\ell, \qquad |C_2|=16-\ell,
-\]
+$$
 
 and
 
-\[
+$$
 V(C_1)\cup V(C_2)=V(AQ_4).
-\]
+$$
 
 ### Theorem 4.1, Case 2.3.1, exceptional case `n = 5`
 
-For every six-edge fault set \(F_R \subseteq E(AQ_4)\) satisfying
+For every six-edge fault set $F_R \subseteq E(AQ_4)$ satisfying
 
-\[
+$$
 \delta(AQ_4-F_R)\ge 2,
-\]
+$$
 
-the graph \(AQ_4-F_R\) contains a cycle of length 15.
+the graph $AQ_4-F_R$ contains a cycle of length 15.
 
 ### Theorem 4.1, Case 3.1.3, exceptional case `n = 5`
 
-For every seven-edge fault set \(F_R \subseteq E(AQ_4)\) satisfying
+For every seven-edge fault set $F_R \subseteq E(AQ_4)$ satisfying
 
-\[
+$$
 \delta(AQ_4-F_R)\ge 2,
-\]
+$$
 
-the graph \(AQ_4-F_R\) contains a cycle of length 15.
+the graph $AQ_4-F_R$ contains a cycle of length 15.
 
 ### Theorem 4.1, Case 3.1.3, exceptional case `n = 6`
 
-For every nine-edge fault set \(F_R \subseteq E(AQ_5)\) satisfying
+For every nine-edge fault set $F_R \subseteq E(AQ_5)$ satisfying
 
-\[
+$$
 \delta(AQ_5-F_R)\ge 2,
-\]
+$$
 
-the graph \(AQ_5-F_R\) contains a cycle of length 31.
+the graph $AQ_5-F_R$ contains a cycle of length 31.
 
 ## Repository contents
 
 | File | Purpose | Verification method |
 |---|---|---|
-| `theorem_4_1_n4_verify.py` | Verifies the complete base case `n = 4` for all fault sizes from 0 through 5 and all \(\ell=3,\ldots,8\). | Affine-automorphism orbit reduction and exact subset dynamic programming. |
+| `theorem_4_1_n4_verify.py` | Verifies the complete base case `n = 4` for all fault sizes from 0 through 5 and all $\ell=3,\ldots,8$. | Affine-automorphism orbit reduction and exact subset dynamic programming. |
 | `case_2_3_1_n5_verify.py` | Verifies Case 2.3.1 for `n = 5`. | Counterexample MILP, exact Held--Karp dynamic programming, and automorphism-orbit cycle cuts. |
 | `case_3_1_3_n5_verify.py` | Verifies Case 3.1.3 for `n = 5`. | Counterexample MILP, exact Held--Karp dynamic programming, and automorphism-orbit cycle cuts. |
 | `case_3_1_3_n6_verify.py` | Verifies Case 3.1.3 for `n = 6`. | Nine translation-symmetry subproblems, a master counterexample MILP, and exact Hamiltonian-cycle MILPs with subtour elimination. |
@@ -177,15 +177,15 @@ A solver time limit is never interpreted as a successful verification. If a limi
 
 ### Base case `n = 4`
 
-The program constructs \(AQ_4\) as a Cayley graph on \(\mathrm{GF}(2)^4\). Fault sets are grouped into orbits under affine graph automorphisms of the form
+The program constructs $AQ_4$ as a Cayley graph on $\mathrm{GF}(2)^4$. Fault sets are grouped into orbits under affine graph automorphisms of the form
 
-\[
+$$
 x\longmapsto Ax+b,
-\]
+$$
 
-where \(A\) preserves the generating set of \(AQ_4\). Only one representative from each orbit is checked.
+where $A$ preserves the generating set of $AQ_4$. Only one representative from each orbit is checked.
 
-For every representative fault set, an exact subset dynamic program determines whether each induced vertex subset contains a Hamiltonian cycle. For each \(\ell=3,\ldots,8\), the program searches for a subset \(S\) with \(|S|=\ell\) such that both \((AQ_4-F)[S]\) and \((AQ_4-F)[V\setminus S]\) contain Hamiltonian cycles. The reconstructed witnesses are independently validated before the representative is accepted.
+For every representative fault set, an exact subset dynamic program determines whether each induced vertex subset contains a Hamiltonian cycle. For each $\ell=3,\ldots,8$, the program searches for a subset $S$ with $|S|=\ell$ such that both $(AQ_4-F)[S]$ and $(AQ_4-F)[V\setminus S]$ contain Hamiltonian cycles. The reconstructed witnesses are independently validated before the representative is accepted.
 
 ### Exceptional cases `n = 5`
 
@@ -195,7 +195,7 @@ For each candidate, an exact Held--Karp dynamic program checks all possible omit
 
 ### Exceptional case `n = 6`
 
-Translation symmetry reduces the search to nine subproblems, one for each generator edge \((0,s)\) of \(AQ_5\). Each subproblem forces the corresponding edge to be faulty.
+Translation symmetry reduces the search to nine subproblems, one for each generator edge $(0,s)$ of $AQ_5$. Each subproblem forces the corresponding edge to be faulty.
 
 The master MILP selects nine faulty edges satisfying the degree condition and all previously generated 31-cycle cuts. For each candidate, the program removes each possible omitted vertex and solves Hamiltonicity exactly by a second MILP. Degree-two constraints first produce a 2-factor; disconnected subtours are then eliminated iteratively until either a Hamiltonian cycle is found or infeasibility is proved.
 
@@ -233,7 +233,7 @@ All four programs have been run successfully for the full parameter ranges used 
 
 The recorded `n = 6` subproblem results were:
 
-| Generator \(s\) | Forced edge | Iterations | Cycle cuts | Wall time (s) |
+| Generator $s$ | Forced edge | Iterations | Cycle cuts | Wall time (s) |
 |---:|---|---:|---:|---:|
 | 1 | `(0, 1)` | 17 | 304 | 139128.70 |
 | 2 | `(0, 2)` | 15 | 272 | 59322.33 |
